@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Chat Room</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 解决网页图片403无法显示的问题  -->
+<meta name="referrer" content="no-referrer"/>
+<!-- jQuery -->
+<script src="../static/jquery/jquery-3.3.1.min.js"></script>
+<!-- Bootstrap -->
+<link rel="stylesheet" href="../static/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="../static/bootstrap/popper.min.js"></script>
+<script src="../static/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- Bootstrap-table -->
+<script src="../static/bootstrap-table/bootstrap-table.min.js"></script>
+<link href="../static/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" />
+<script src="../static/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+
+<!-- 项目样式 -->
+<link rel="stylesheet" href="../static/css/style.css">
+<!-- 项目js -->
+<script src="../static/js/webchat.utils.js"></script>
+<script src="../static/js/chatroom.js"></script>
+</head>
+<body>
+<div class="modal fade" id="modalChatroom" tabindex="-1" role="dialog" aria-labelledby="modalChatroomLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" id="btnX" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="modalChatroomLabel">聊天室:<span id="spanRoomName"></span></h4>
+            </div>
+            <div class="modal-body">
+				<div class="container w-100">
+					<div class="row clearfix">
+						<div class="col-md-3 column">
+							<div class="panel panel-default pre-scrollable">
+			            		<div class="panel-body padding-none">
+			            			<ul id="ulGuestList"></ul>
+			            		</div>
+			            	</div>
+						</div>
+						<div class="col-md-9 column">
+			            	<div class="panel panel-default">
+			            		<div class="panel-body pre-scrollable" id="divMsg" style="min-height: 300px;">
+			            			<table class="w-100" id="tableMsg"><tbody></tbody></table>
+			            		</div>
+			            	</div>
+							<form role="form" id="formSendMsg">
+							  <div class="form-group">
+							    <textarea class="form-control" rows="2" id="txtMsgContent" name="msgContent"></textarea>
+							  </div>
+							</form>
+							<button class="btn btn-primary float-r" id="btnSendMsg">发送</button>
+						</div>
+					</div>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

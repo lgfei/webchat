@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lgfei.tool.webchat.dao.MsgDao">
+	<insert id="insert">
+	INSERT INTO t_msg 
+	(room_id,guest_id,msg_content) 
+	VALUES
+	(#{roomId},#{guestId},#{msgContent})	
+	</insert>
+	
+	<select id="queryList" resultType="com.lgfei.tool.webchat.vo.MsgVO">
+	SELECT 
+	  t.`id` AS id,
+	  t.`create_time` AS createTime,
+	  t.`update_time` AS updateTime,
+	  t.`enable_flag` AS enableFlag,
+	  t.`room_id` AS roomId,
+	  t.`guest_id` AS guestId,
+	  g.`guest_name` AS nickName,
+	  t.`msg_content` AS msgContent
+	FROM
+	  t_msg t
+	  LEFT JOIN t_guest g 
+	    ON t.`guest_id` = g.`guest_id`	   
+	  <where>
+	    1=1
+	  	<if test="roomId != null and roomId !='' ">
+	  		AND t.`room_id` = #{roomId}
+	  	</if>
+	  	<if test="guestId != null and guestId !='' ">
+	  		AND t.`guest_id` = #{guestId}
+	  	</if>
+	  </where>	
+	  ORDER BY t.`update_time`
+	</select>	
+</mapper>

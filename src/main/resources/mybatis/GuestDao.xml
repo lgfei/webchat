@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lgfei.tool.webchat.dao.GuestDao">
+	<sql id="base_query_sql">
+	SELECT 
+	  t.`id` AS id,
+	  t.`create_time` AS createTime,
+	  t.`update_time` AS updateTime,
+	  t.`enable_flag` AS enableFlag,
+	  t.`room_id` AS roomId,
+	  t.`guest_id` AS guestId,
+	  t.`guest_name` AS guestName,
+	  t.`guest_type` AS guestType,
+	  t.`guest_status` AS guestStatus,
+	  t.`guest_ip` AS guestIp
+	FROM
+	  t_guest t 	
+	</sql>
+	
+	<insert id="insert">
+	INSERT INTO t_guest 
+	(room_id,guest_id,guest_name,guest_type,guest_ip) 
+	VALUES
+	(#{roomId},#{guestId},#{guestName},#{guestType},#{guestIp})
+	</insert>
+	
+	<select id="queryList" resultType="com.lgfei.tool.webchat.vo.GuestVO">
+	  <include refid="base_query_sql"></include> 
+	  <where>
+	    1=1
+	  	<if test="roomId != null and roomId !='' ">
+	  		AND t.`room_id` = #{roomId}
+	  	</if>
+	  	<if test="guestIp != null and guestIp !='' ">
+	  		AND t.`guest_ip` = #{guestIp}
+	  	</if>
+	  	<if test="guestType != null and guestType !='' ">
+	  		AND t.`guest_type` = #{guestType}
+	  	</if>
+	  </where>	
+	</select>
+	
+	<select id="queryById" resultType="com.lgfei.tool.webchat.vo.GuestVO">
+	<include refid="base_query_sql"></include>
+	WHERE t.`guest_id` = #{id} 
+	</select>
+	
+	<update id="updateGuestStatus">
+	UPDATE 
+	  t_guest t 
+	SET
+	  t.`guest_status` = #{guestStatus},
+	  t.`update_time` = NOW() 
+	WHERE t.`guest_id` = #{guestId}
+	</update>
+</mapper>

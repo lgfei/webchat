@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lgfei.tool.webchat.dao.RoomDao">
+	<sql id="base_query_sql">
+	SELECT 
+	  t.`id` AS id,
+	  t.`create_time` AS createTime,
+	  t.`update_time` AS updateTime,
+	  t.`enable_flag` AS enableFlag,
+	  t.`room_id` AS roomId,
+	  t.`room_name` AS roomName,
+	  t.`room_limit` AS roomLimit,
+	  (SELECT COUNT(1) FROM t_guest sg WHERE sg.`room_id` = t.`room_id`) AS roomGuestNum,
+      (SELECT COUNT(1) FROM t_guest sg WHERE sg.`room_id` = t.`room_id` AND sg.`guest_status` = 1) AS roomOnlineNum,
+	  t.`room_password` AS roomPassword,
+	  t.`room_desc` AS roomDesc,
+	  t.`room_ip` AS roomIp,
+	  t.`room_port` AS roomPort
+	FROM
+	  t_room t 	
+	</sql>
+	
+	<insert id="insert">
+	INSERT INTO t_room 
+	(room_id,room_name,room_limit,room_password,room_desc,room_ip,room_port) 
+	VALUES 
+	(#{roomId},#{roomName},#{roomLimit},#{roomPassword},#{roomDesc},#{roomIp},#{roomPort})
+	</insert>
+	
+	<select id="queryPageList" resultType="com.lgfei.tool.webchat.vo.RoomVO">
+	<include refid="base_query_sql"></include>	  
+	<where>
+		1=1
+		<if test="vo.roomId != null and vo.roomId != ''">
+			AND t.`room_id` = #{vo.roomId} 
+		</if>
+		<if test="vo.roomName != null and vo.roomName != ''">
+			AND t.`room_name` LIKE CONCAT('%', #{vo.roomName}, '%') 
+		</if>
+	</where>
+	ORDER BY t.`update_time` DESC 
+	LIMIT #{page.start}, #{page.offset} 			
+	</select>	
+
+	<select id="queryCount" resultType="java.lang.Integer">
+	SELECT 
+	  COUNT(1)
+	FROM
+	  t_room t 
+	<where>
+		1=1
+		<if test="roomId != null and roomId != ''">
+			AND t.`room_id` = #{roomId} 
+		</if>
+		<if test="roomName != null and roomName != ''">
+			AND t.`room_name` LIKE CONCAT('%', #{roomName}, '%') 
+		</if>
+	</where>	
+	</select>	
+
+	<select id="queryById" resultType="com.lgfei.tool.webchat.vo.RoomVO">
+	<include refid="base_query_sql"></include>	  
+	WHERE t.`room_id` = #{id} 
+	</select>	
+	
+	<select id="queryList" resultType="com.lgfei.tool.webchat.vo.RoomVO">
+	<include refid="base_query_sql"></include>
+	<where>
+		1=1
+		<if test="roomId != null and roomId != ''">
+			AND t.`room_id` = #{roomId} 
+		</if>
+	</where>	  
+	</select>
+</mapper>
