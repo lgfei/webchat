@@ -16,7 +16,8 @@ CREATE TABLE `t_guest` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uk` (`guest_id`) USING BTREE
+  UNIQUE KEY `uk` (`guest_id`) USING BTREE,
+  UNIQUE KEY `uk_biz` (`guest_name`,`room_id`) USING BTREE
 );
 
 -- ----------------------------
