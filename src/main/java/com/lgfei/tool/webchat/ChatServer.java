@@ -13,7 +13,7 @@ import javax.websocket.server.ServerEndpoint;
 
 import org.apache.log4j.Logger;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.lgfei.tool.webchat.exception.SystemException;
 import com.lgfei.tool.webchat.service.GuestService;
 import com.lgfei.tool.webchat.service.MsgService;
