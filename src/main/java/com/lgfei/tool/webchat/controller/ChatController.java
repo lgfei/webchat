@@ -134,24 +134,26 @@ public class ChatController
                 {
                     if (reqIp.equals(roomVO.getRoomIp()))
                     {
+                        log.error("正常不会到这的");
                         resp.put("resultCode", ResultCodeEnum.BUSINESS_ERROR.getCode());
                         return resp;
                     }
+
+                    String nickname = param.getString("nickname");
+                    if (StringUtils.isEmpty(nickname))
+                    {
+                        log.error("昵称不能为空");
+                        resp.put("resultCode", ResultCodeEnum.INVALID_PARAM.getCode());
+                        return resp;
+                    }
+
                     String roomPassword = param.getString("roomPassword");
                     roomPassword = StringUtils.isEmpty(roomPassword) ? "" : roomPassword;
                     String dbRoomPassword = roomVO.getRoomPassword();
                     dbRoomPassword = StringUtils.isEmpty(dbRoomPassword) ? "" : dbRoomPassword;
                     if (!roomPassword.equals(dbRoomPassword))
                     {
-                        // 口令不正确
-                        resp.put("resultCode", ResultCodeEnum.INVALID_PARAM.getCode());
-                        return resp;
-                    }
-                    
-                    String nickname = param.getString("nickname");
-                    if (StringUtils.isEmpty(nickname))
-                    {
-                        // 昵称不能为空
+                        log.error("口令不正确");
                         resp.put("resultCode", ResultCodeEnum.INVALID_PARAM.getCode());
                         return resp;
                     }
@@ -161,7 +163,7 @@ public class ChatController
                     guestQueryParams.setGuestName(nickname);
                     List<GuestVO> dbGuestList = guestService.findList(guestQueryParams);
                     if(!CollectionUtils.isEmpty(dbGuestList)){
-                        // 昵称已占用
+                        log.error(String.format("昵称[%s]已占用", nickname));
                         resp.put("resultCode", ResultCodeEnum.DUPLICATE_KEY.getCode());
                         return resp;
                     }

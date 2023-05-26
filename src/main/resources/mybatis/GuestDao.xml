@@ -37,6 +37,9 @@
 	  	<if test="guestType != null and guestType !='' ">
 	  		AND t.`guest_type` = #{guestType}
 	  	</if>
+		<if test="guestName != null and guestName !='' ">
+			AND t.`guest_name` = #{guestName}
+		</if>
 	  </where>	
 	</select>
 	

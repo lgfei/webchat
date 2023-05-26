@@ -245,10 +245,11 @@ var BtnOpenChatRoom = function(roomId){
 		    	contentType: "application/x-www-form-urlencoded",
 		    	success: function(resp){
 		    		var respObj = JSON.parse(resp);
-		    		var guestId = respObj.guest.guestId;
-		    		if(guestId){
-		    			window.open("../page/chatroom?roomId="+roomId+"&guestId="+guestId);
-		    		}
+		    		if(respObj.guest && respObj.guest.guestId){
+		    			window.open("../page/chatroom?roomId="+roomId+"&guestId="+respObj.guest.guestId);
+		    		}else{
+						alert("错误码=" + respObj.resultCode);
+					}
 		    	}
 		    });
         });
