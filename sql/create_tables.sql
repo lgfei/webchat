@@ -14,7 +14,7 @@ CREATE TABLE `t_guest` (
   `room_id` varchar(32) NOT NULL,
   `enable_flag` tinyint(3) NOT NULL DEFAULT '1',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` datetime DEFAULT NULL,
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk` (`guest_id`) USING BTREE,
   UNIQUE KEY `uk_biz` (`guest_name`,`room_id`) USING BTREE
@@ -32,7 +32,7 @@ CREATE TABLE `t_msg` (
   `msg_content` varchar(127) NOT NULL,
   `enable_flag` tinyint(3) NOT NULL DEFAULT '1',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` datetime DEFAULT NULL,
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 );
 
@@ -51,7 +51,7 @@ CREATE TABLE `t_room` (
   `room_port` int(11) NOT NULL DEFAULT '8080',
   `enable_flag` tinyint(3) NOT NULL DEFAULT '1',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` datetime DEFAULT NULL,
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_name` (`room_name`) USING BTREE,
   UNIQUE KEY `uk_id` (`room_id`) USING BTREE

@@ -1,18 +1,5 @@
 package com.lgfei.tool.webchat.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
@@ -30,6 +17,17 @@ import com.lgfei.tool.webchat.vo.GuestVO;
 import com.lgfei.tool.webchat.vo.MsgVO;
 import com.lgfei.tool.webchat.vo.PageResult;
 import com.lgfei.tool.webchat.vo.RoomVO;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping("/service")
@@ -155,6 +153,16 @@ public class ChatController
                     {
                         // 昵称不能为空
                         resp.put("resultCode", ResultCodeEnum.INVALID_PARAM.getCode());
+                        return resp;
+                    }
+
+                    GuestVO guestQueryParams = new GuestVO();
+                    guestQueryParams.setRoomId(roomId);
+                    guestQueryParams.setGuestName(nickname);
+                    List<GuestVO> dbGuestList = guestService.findList(guestQueryParams);
+                    if(!CollectionUtils.isEmpty(dbGuestList)){
+                        // 昵称已占用
+                        resp.put("resultCode", ResultCodeEnum.DUPLICATE_KEY.getCode());
                         return resp;
                     }
                     
