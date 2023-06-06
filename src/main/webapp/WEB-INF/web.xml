@@ -50,16 +50,20 @@
   <!--// SpringMVC -->
   
   <!-- Log4J -->
-  <servlet>  
-    <servlet-name>Log4jServlet</servlet-name>  
-    <servlet-class>com.lgfei.tool.webchat.servlet.Log4jServlet</servlet-class>  
-    <init-param>  
-        <param-name>log4j-properties-location</param-name>  
-        <!-- <param-value>classpath*:log4j.properties</param-value> -->  
-        <param-value>WEB-INF/classes/log4j.properties</param-value>
-    </init-param>  
-    <load-on-startup>1</load-on-startup>  
-  </servlet> 
+<!--  <servlet>  -->
+<!--    <servlet-name>Log4jServlet</servlet-name>  -->
+<!--    <servlet-class>com.lgfei.tool.webchat.servlet.Log4jServlet</servlet-class>  -->
+<!--    <init-param>  -->
+<!--        <param-name>log4j-properties-location</param-name>  -->
+<!--        &lt;!&ndash; <param-value>classpath*:log4j.properties</param-value> &ndash;&gt;  -->
+<!--        <param-value>WEB-INF/classes/log4j.properties</param-value>-->
+<!--    </init-param>  -->
+<!--    <load-on-startup>1</load-on-startup>  -->
+<!--  </servlet>-->
+<!--  <servlet-mapping>-->
+<!--    <servlet-name>Log4jServlet</servlet-name>-->
+<!--    <url-pattern>/Log4jServlet</url-pattern>-->
+<!--  </servlet-mapping>-->
   <!--// Log4J --> 
   
 </web-app>
